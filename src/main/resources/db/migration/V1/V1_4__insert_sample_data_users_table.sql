@@ -1,0 +1,10 @@
+BEGIN;
+insert into USERS (user_name, first_name, last_name, password) values ('esilioni', 'Evi', 'Silioni', 'P@ssword');
+insert into USERS (user_name, first_name, last_name, password) values ('user1', 'User1', 'NumberOne', 'P@ssword1');
+insert into USERS (user_name, first_name, last_name, password) values ('user2', 'User2', 'NumberTwo', 'P@ssword2');
+insert into USERS (user_name, first_name, last_name, password) values ('user3', 'User3', 'NumberThree', 'P@ssword3');
+insert into USERS (user_name, first_name, last_name, password) values ('user4', 'User4', 'NumberFour', 'P@ssword4');
+insert into USERS (user_name, first_name, last_name, password) values ('user5', 'User5', 'NumberFive', 'P@ssword5');
+insert into USERS (user_name, first_name, last_name, password) values ('user6', 'User6', 'NumberSix', 'P@ssword6');
+insert into USERS (user_name, first_name, last_name, password) values ('user7', 'User7', 'NumberSev', 'P@ssword7');
+COMMIT;
