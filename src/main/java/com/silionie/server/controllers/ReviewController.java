@@ -1,7 +1,8 @@
 package com.silionie.server.controllers;
 
 import com.silionie.server.domain.Review;
-import com.silionie.server.domain.Unit;
+import com.silionie.server.mapper.ReviewResponse;
+import com.silionie.server.mapper.ReviewResponseMapper;
 import com.silionie.server.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -9,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -26,13 +26,12 @@ public class ReviewController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public @ResponseBody
-    ResponseEntity<Optional<Unit>> apply(@RequestBody Review review) {
-        Optional<Unit> updatedUnit = reviewService.applyReview(review);
-        if(updatedUnit.isPresent()){
-            return ResponseEntity.ok(updatedUnit);
-        }
-        if(updatedUnit == null){
-            return ResponseEntity.badRequest().build();
+    ResponseEntity<ReviewResponse> apply(@RequestBody Review review) {
+        if(review == null) return ResponseEntity.badRequest().build();
+
+        ReviewResponse reviewResponse = reviewService.applyReview(review);
+        if(reviewResponse != null && reviewResponse.getUnit() != null){
+            return ResponseEntity.ok(reviewResponse);
         }
         return ResponseEntity.notFound().build();
     }

@@ -24,9 +24,6 @@ public class User {
 
     private String password;
 
-    @ManyToMany
-    List<Unit> likedCourses;
-
     public void setId(Long id) {
         this.id = id;
     }

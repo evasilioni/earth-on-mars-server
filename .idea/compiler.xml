@@ -9,8 +9,5 @@
         <module name="EarthOnMarsServe" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="EarthOnMarsServe" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

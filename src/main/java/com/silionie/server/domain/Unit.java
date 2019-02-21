@@ -1,6 +1,7 @@
 package com.silionie.server.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "UNITS")
@@ -84,4 +85,5 @@ public class Unit {
     public void setScore(Integer score) {
         this.score = score;
     }
+
 }

@@ -15,8 +15,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_name")
-    private String colonistId;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "unit_id")
     private Long unitId;
@@ -40,12 +40,12 @@ public class Review {
         this.id = id;
     }
 
-    public String getColonistId() {
-        return colonistId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setColonistId(String colonistId) {
-        this.colonistId = colonistId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getComment() {

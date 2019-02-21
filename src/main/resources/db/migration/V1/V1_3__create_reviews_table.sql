@@ -1,12 +1,11 @@
--- Table: EARTH_ON_MARS_DB."USERS"
 
 CREATE TABLE REVIEWS
 (
-    id IDENTITY  primary key not null,
-    unit_id integer NOT NULL,
-    number_of_star integer NOT NULL,
+    id IDENTITY  PRIMARY KEY NOT NULL,
+    unit_id INT NOT NULL,
+    number_of_star INT NOT NULL,
     comment text null,
-    user_name varchar(250) NOT NULL,
-    created_date date not null default now(),
+    user_id INT NOT NULL,
+    created_date DATE DEFAULT GETDATE(),
     FOREIGN KEY (unit_id) REFERENCES units (id)
 );
