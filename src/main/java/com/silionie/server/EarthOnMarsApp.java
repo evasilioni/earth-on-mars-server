@@ -10,9 +10,4 @@ public class EarthOnMarsApp {
     public static void main(String[] args) {
         SpringApplication.run(EarthOnMarsApp.class);
     }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

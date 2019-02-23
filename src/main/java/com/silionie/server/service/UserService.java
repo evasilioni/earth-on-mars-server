@@ -12,6 +12,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public User findUser(User user){
-        return userRepository.findByUsernameAndPassword(user.getColonistId(), user.getPassword());
+        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
     }
 }
