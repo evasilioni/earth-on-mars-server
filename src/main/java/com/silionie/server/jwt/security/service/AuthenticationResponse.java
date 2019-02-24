@@ -4,13 +4,37 @@ import java.io.Serializable;
 
 public class AuthenticationResponse implements Serializable {
 
-    private final String token;
+    private String token;
+    private String firstname;
+    private String lastname;
 
-    public AuthenticationResponse(String token) {
+    public AuthenticationResponse() {
+
+    }
+
+    public AuthenticationResponse(String token, String firstname, String lastname) {
         this.token = token;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     public String getToken() {
         return this.token;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 }
