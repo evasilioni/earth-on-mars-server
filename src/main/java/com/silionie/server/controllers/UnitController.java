@@ -15,18 +15,20 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/units")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UnitController {
 
     @Autowired
     private UnitService unitService;
 
     @RequestMapping(
+            value = "/units",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public @ResponseBody
-    ResponseEntity<List<Unit>> getUnits(@Param("title") String title, @Param("region") String region) {
+    ResponseEntity<List<Unit>> getUnits(@RequestParam(value = "title", required = false) String title,
+                                        @RequestParam(value = "region", required = false) String region) {
         List<Unit> units = unitService.findUnits(title, region);
         if(units.size()>0){
             return ResponseEntity.ok(units);
