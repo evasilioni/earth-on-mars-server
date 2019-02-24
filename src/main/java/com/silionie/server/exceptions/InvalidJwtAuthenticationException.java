@@ -1,6 +1,4 @@
-package com.silionie.server.jwt.security;
-
-import com.silionie.server.jwt.security.controller.AuthenticationException;
+package com.silionie.server.exceptions;
 
 
 public class InvalidJwtAuthenticationException extends AuthenticationException {

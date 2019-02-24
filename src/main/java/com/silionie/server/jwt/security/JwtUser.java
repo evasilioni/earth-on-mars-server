@@ -1,11 +1,16 @@
 package com.silionie.server.jwt.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.silionie.server.domain.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 public class JwtUser implements UserDetails {
 
@@ -14,22 +19,11 @@ public class JwtUser implements UserDetails {
     private final String firstname;
     private final String lastname;
     private final String password;
-    private final Collection<? extends GrantedAuthority> authorities;
-
-    public JwtUser(Long id, String username, String firstname, String lastname,
-                   String password,
-                   Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.password = password;
-        this.authorities = authorities;
-    }
+    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        return authorities;
     }
 
     @Override
@@ -64,4 +58,49 @@ public class JwtUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    private JwtUser(JwtUserBuilder builder) {
+        this.id = builder.id;
+        this.username = builder.username;
+        this.firstname = builder.firstname;
+        this.lastname = builder.lastname;
+        this.password = builder.password;
+        this.authorities = builder.authorities;
+    }
+
+    //Builder Class
+    public static class JwtUserBuilder {
+
+        private Long id;
+        private String username;
+        private String firstname;
+        private String lastname;
+        private String password;
+        private Collection<? extends GrantedAuthority> authorities;
+
+        public JwtUserBuilder(User user) {
+            this.username = user.getUsername();
+            this.password = user.getPassword();
+            this.authorities = mapToGrantedAuthorities(user.getRoles());
+        }
+
+        public JwtUserBuilder setFirstname(String firstname) {
+            this.firstname = firstname;
+            return this;
+        }
+
+        public JwtUserBuilder setLastname(String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
+
+        private static List<GrantedAuthority> mapToGrantedAuthorities(List<String> roles) {
+            return roles.stream().map(SimpleGrantedAuthority::new).collect(toList());
+        }
+
+        public JwtUser build() {
+            return new JwtUser(this);
+        }
+    }
+
 }

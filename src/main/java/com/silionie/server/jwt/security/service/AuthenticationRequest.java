@@ -1,6 +1,6 @@
-package com.silionie.server.jwt.security;
+package com.silionie.server.jwt.security.service;
 
-public class JwtAuthenticationRequest {
+public class AuthenticationRequest {
     private String username;
     private String password;
 

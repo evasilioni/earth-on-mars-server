@@ -1,8 +1,8 @@
 package com.silionie.server.config;
 
-import com.silionie.server.jwt.security.JwtAuthorizationTokenFilter;
+import com.silionie.server.jwt.security.AuthorizationTokenFilter;
 import com.silionie.server.jwt.security.TokenProvider;
-import com.silionie.server.jwt.security.service.CustomUserDetailsService;
+import com.silionie.server.jwt.security.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +20,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.silionie.server.jwt.security.Constants.SIGN_IN;
+
 
 @Configuration
 @EnableWebSecurity
@@ -30,16 +32,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private TokenProvider jwtTokenProvider;
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private JwtUserDetailsService jwtUserDetailsService;
 
     @Autowired
-    private JwtAuthorizationTokenFilter jwtAuthorizationTokenFilter;
+    private AuthorizationTokenFilter authorizationTokenFilter;
 
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(customUserDetailsService)
+                .userDetailsService(jwtUserDetailsService)
                 .passwordEncoder(passwordEncoderBean());
     }
 
@@ -57,18 +59,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .cors().disable()
-                // we don't need CSRF because our token is invulnerable
+        httpSecurity.cors().and()
                 .csrf().disable()
                 // don't create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/signin").permitAll()
+                .antMatchers(SIGN_IN).permitAll()
                 .anyRequest().authenticated();
 
         httpSecurity
-                .addFilterBefore(jwtAuthorizationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(authorizationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         // disable page caching
         httpSecurity
@@ -84,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers(
                         HttpMethod.POST,
-                        "/signin"
+                        SIGN_IN
                 )
                 // allow anonymous resource requests
                 .and()

@@ -1,6 +1,6 @@
 package com.silionie.server.jwt.security;
 
-import com.silionie.server.jwt.security.service.CustomUserDetailsService;
+import com.silionie.server.jwt.security.service.JwtUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +21,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
+public class AuthorizationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private TokenProvider jwtTokenProvider;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private JwtUserDetailsService jwtUserDetailsService;
 
-    public JwtAuthorizationTokenFilter(TokenProvider jwtTokenProvider) {
+    public AuthorizationTokenFilter(TokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -52,20 +52,16 @@ public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
         logger.debug("checking authentication for user '{}'", username);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             logger.debug("security context was null, so authorizing user");
-
-            // It is not compelling necessary to load the use details from the database. You could also store the information
-            // in the token and read it from it. It's up to you ;)
             UserDetails userDetails;
             try {
-                userDetails = customUserDetailsService.loadUserByUsername(username);
+                userDetails = jwtUserDetailsService.loadUserByUsername(username);
             } catch (UsernameNotFoundException e) {
                 httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
                 return;
             }
-            // For simple validation it is completely sufficient to just check the token integrity. You don't have to call
-            // the database compellingly. Again it's up to you ;)
-            if (jwtTokenProvider.validateToken(token, userDetails.getUsername())) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            if (jwtTokenProvider.validateToken(token)) {
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 logger.info("authorized user '{}', setting security context", username);
                 SecurityContextHolder.getContext().setAuthentication(authentication);

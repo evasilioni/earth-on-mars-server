@@ -21,15 +21,18 @@ public class DataInitializer implements CommandLineRunner {
 
         User esilioni = users.findByUsername("esilioni");
         User admin = users.findByUsername("admin");
-        User user2 = users.findByUsername("user2");
 
         esilioni.setPassword(passwordEncoder.encode(esilioni.getPassword()));
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-        user2.setPassword(passwordEncoder.encode(user2.getPassword()));
 
         users.save(esilioni);
         users.save(admin);
-        users.save(user2);
+
+        for(int i=2; i<=7; i++){
+            User user = users.findByUsername("user" +i);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            users.save(user);
+        }
 
     }
 }

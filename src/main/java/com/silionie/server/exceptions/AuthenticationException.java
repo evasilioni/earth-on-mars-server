@@ -1,4 +1,4 @@
-package com.silionie.server.jwt.security.controller;
+package com.silionie.server.exceptions;
 
 public class AuthenticationException extends RuntimeException {
     public AuthenticationException(String message, Throwable cause) {
