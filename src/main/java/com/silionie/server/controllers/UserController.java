@@ -2,7 +2,6 @@ package com.silionie.server.controllers;
 
 import com.silionie.server.domain.User;
 import com.silionie.server.exceptions.InvalidJwtAuthenticationException;
-import com.silionie.server.jwt.security.JwtUser;
 import com.silionie.server.jwt.security.service.AuthenticationRequest;
 import com.silionie.server.jwt.security.TokenProvider;
 import com.silionie.server.jwt.security.service.JwtUserDetailsService;
@@ -17,10 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-
-import static com.silionie.server.jwt.security.Constants.HEADER_STRING;
 
 
 @RestController
@@ -67,7 +63,8 @@ public class UserController {
                 return ResponseEntity.status(403).body(ex.getMessage());
             }
         }
-        return ResponseEntity.notFound().build();
+
+        return ResponseEntity.status(404).body("User:" + authenticationRequest.getUsername() + " not found.");
     }
 
 }

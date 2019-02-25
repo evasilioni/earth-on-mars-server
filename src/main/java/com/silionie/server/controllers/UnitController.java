@@ -27,12 +27,12 @@ public class UnitController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public @ResponseBody
-    ResponseEntity<List<Unit>> getUnits(@RequestParam(value = "title", required = false) String title,
+    ResponseEntity<?> getUnits(@RequestParam(value = "title", required = false) String title,
                                         @RequestParam(value = "region", required = false) String region) {
         List<Unit> units = unitService.findUnits(title, region);
         if(units.size()>0){
             return ResponseEntity.ok(units);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(404).body("Empty units.");
     }
 }

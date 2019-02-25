@@ -21,7 +21,7 @@ import static com.silionie.server.jwt.security.Constants.HEADER_STRING;
 
 
 @RestController
-@RequestMapping("/reviews")
+@RequestMapping("/review")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ReviewController {
 
@@ -40,7 +40,7 @@ public class ReviewController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public @ResponseBody
-    ResponseEntity<ReviewResponse> apply(HttpServletRequest request, @RequestBody Review review) {
+    ResponseEntity<?> apply(HttpServletRequest request, @RequestBody Review review) {
         String token = request.getHeader(HEADER_STRING).substring(7);
         String username = jwtTokenProvider.getUserNameFromToken(token);
         User user = this.user.findUser(username);
@@ -49,7 +49,7 @@ public class ReviewController {
         if(reviewResponse != null && reviewResponse.getUnit() != null){
             return ResponseEntity.ok(reviewResponse);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(422).body("Post could not be completed.");
     }
 
 }
