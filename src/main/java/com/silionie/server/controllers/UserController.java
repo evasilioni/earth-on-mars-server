@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -59,8 +60,8 @@ public class UserController {
                 return ResponseEntity.ok(new AuthenticationResponse(token,
                         persistedUser.getFirstName(),
                         persistedUser.getLastName()));
-            } catch (InvalidJwtAuthenticationException ex) {
-                return ResponseEntity.status(403).body(ex.getMessage());
+            } catch (InvalidJwtAuthenticationException | AuthenticationException ex ) {
+                return ResponseEntity.status(401).body(ex.getMessage());
             }
         }
 

@@ -31,15 +31,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.1.3.RELEASE</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>5.1.4.RELEASE</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
@@ -51,19 +47,11 @@
             <artifactId>spring-security-config</artifactId>
             <version>5.1.4.RELEASE</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.2</version>
-        </dependency>
-
-
-        <!-- Spring Test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -85,6 +73,21 @@
             <artifactId>flyway-maven-plugin</artifactId>
             <version>5.2.4</version>
         </dependency>
+
+        <!-- Spring Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>2.1-rc4</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <!--The spring-boot-maven-plugin provides Spring Boot support in Maven, allowing us to package executable JAR or WAR archives.-->
