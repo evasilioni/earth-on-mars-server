@@ -5,6 +5,8 @@ import com.silionie.server.domain.User;
 import com.silionie.server.repository.UnitRepository;
 import com.silionie.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,10 @@ public class UnitService {
             return unitRepository.findByRegionOrderByScoreDesc(region);
         }
         return unitRepository.findAll();
+    }
+
+    public Page<Unit> findUnits(Pageable pageable){
+        return unitRepository.findAll(pageable);
     }
 
     private static boolean isEmpty(String s) {

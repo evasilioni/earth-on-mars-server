@@ -41,11 +41,26 @@ values ('https://loremflickr.com/150/150?random=4', 'Random Title 4', 'Random Re
 'Random Canc Policy 4', 34400,0);
 
 insert into UNITS (image_url, title ,region ,description ,cancellation_policy ,price ,score)
-values ('https://loremflickr.com/150/150?random=4', 'Random Title 4', 'Random Region 4', 'Random Description New one for Number 4',
-'Random Canc Policy New one for Number 4', 84215,0);
+values ('https://loremflickr.com/150/150?random=3', 'Toc Toc', 'Spain', 'Random Description Spain',
+'Random Canc Policy New one for Number 4', 184215,0);
 
 insert into UNITS (image_url, title ,region ,description ,cancellation_policy ,price ,score)
-values ('https://loremflickr.com/150/150?random=4', 'Random Title 4', 'Random Region 4', 'Random Description Cheaper for Number 4',
+values ('https://loremflickr.com/150/150?random=2', 'Secrets Soldiers of Beggazi', 'Tripoli', 'Random Description Cheaper for Number 4',
+'Random Canc Policy Cheaper for Number 4', 12574,0);
+
+
+insert into UNITS (image_url, title ,region ,description ,cancellation_policy ,price ,score)
+values ('https://loremflickr.com/150/150?random=1', 'Random Title 4', 'Random Region 4', 'Random Description Cheaper for Number 4',
+'Random Canc Policy Cheaper for Number 4', 12574,0);
+
+
+insert into UNITS (image_url, title ,region ,description ,cancellation_policy ,price ,score)
+values ('https://loremflickr.com/150/150?random=1', 'Random Title 4', 'Random Region 4', 'Random Description Cheaper for Number 4',
+'Random Canc Policy Cheaper for Number 4', 12574,0);
+
+
+insert into UNITS (image_url, title ,region ,description ,cancellation_policy ,price ,score)
+values ('https://loremflickr.com/150/150?random=3', 'Random Title 4', 'Random Region 4', 'Random Description Cheaper for Number 4',
 'Random Canc Policy Cheaper for Number 4', 12574,0);
 
 COMMIT;

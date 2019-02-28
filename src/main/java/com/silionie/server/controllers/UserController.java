@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     @Autowired
