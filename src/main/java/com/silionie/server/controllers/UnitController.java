@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 public class UnitController {
@@ -23,14 +25,14 @@ public class UnitController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public @ResponseBody
-    ResponseEntity<?> getUnits(@RequestParam(value = "title", required = false) String title,
+    ResponseEntity<List<Unit>> getUnits(@RequestParam(value = "title", required = false) String title,
                                         @RequestParam(value = "region", required = false) String region,
-                               @RequestParam(value = "page") int page) {
+                                        @RequestParam(value = "page") int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Unit> units = unitService.findUnits(pageable);
-        if(units.getTotalPages()>0){
-            return ResponseEntity.ok(units.getContent());
+        if (page > units.getTotalPages()) {
+            ResponseEntity.status(404).body("Not found any other units.");
         }
-        return ResponseEntity.status(404).body("Empty units.");
+        return ResponseEntity.ok(units.getContent());
     }
 }
