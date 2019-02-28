@@ -22,7 +22,6 @@ import static com.silionie.server.jwt.security.Constants.HEADER_STRING;
 
 @RestController
 @RequestMapping("/review")
-@CrossOrigin(origins = "http://localhost:4200")
 public class ReviewController {
 
     @Autowired
